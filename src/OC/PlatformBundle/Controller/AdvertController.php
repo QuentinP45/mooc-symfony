@@ -9,6 +9,6 @@ class AdvertController extends Controller
 {
     public function indexAction()
     {
-        return new Response("Notre propre Hello World");
+        return $this->render('@OCPlatform/Advert/index.html.twig');
     }
 }
