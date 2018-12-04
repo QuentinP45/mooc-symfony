@@ -13,4 +13,9 @@ class AdvertController extends Controller
             'title' => 'Hello world !',
         ]);
     }
+
+    public function viewAction($id)
+    {
+        return new Response("Affichage de l'anonce d'id : " . $id);
+    }
 }
