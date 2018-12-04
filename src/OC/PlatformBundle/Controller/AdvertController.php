@@ -9,6 +9,8 @@ class AdvertController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('@OCPlatform/Advert/index.html.twig');
+        return $this->render('@OCPlatform/Advert/index.html.twig', [
+            'title' => 'Hello world !',
+        ]);
     }
 }
