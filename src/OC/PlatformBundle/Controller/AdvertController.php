@@ -4,12 +4,16 @@ namespace OC\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdvertController extends Controller
 {
-    public function indexAction()
+    public function indexAction($page)
     {
+        if ($page < 1) {
+            throw new NotFoundHttpException('Page ' . $page . ' inexistante.');
+        }
+
         return $this->render('@OCPlatform/Advert/index.html.twig', [
             'title' => 'Hello world !',
         ]);
@@ -24,11 +28,29 @@ class AdvertController extends Controller
 
     public function addAction(Request $request)
     {
-        $session = $request->getSession();
+        if ($request->isMethod('POST')) {
+            $session = $request->getSession();
+            $session->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+            
+            return $this->redirectToRoute('oc_platform_view', ['id' => 5]);
+        }
+        return $this->render('@OCPlatform/Advert/add.html.twig');
+    }
 
-        $session->getFlashBag()->add('info', 'Annonce bien enregistrée');
-        $session->getFlashBag()->add('info', 'Oui oui, elle est bien enregistrée !');
-        
-        return $this->redirectToRoute('oc_platform_view', ['id' => 5]);
+    public function editAction($id, Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $session = $request->getSession();
+            $session->getFlashBag()->add('notice', 'Annonce bien modifiée.');
+            
+            return $this->redirectToRoute('oc_platform_view', ['id' => 5]);
+        }
+
+        return $this->render('@OCPlatform/Advert/edit.html.twig');
+    }
+
+    public function deleteAction($id)
+    {
+        return $this->render('@OCPlatform/Advert/delete.html.twig');
     }
 }
