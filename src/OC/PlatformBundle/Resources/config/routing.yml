@@ -2,18 +2,32 @@ oc_platform_home:
     path:      /platform/{page}
     defaults: 
         _controller: OCPlatformBundle:Advert:index
-        page:    1
+        page: 1
     requirements:
-        page:    \d*
+        page: \d*
 
 oc_platform_view:
     path:      platform/advert/{id}
     defaults:  
         _controller: OCPlatformBundle:Advert:view
     requirements:
-        id:    \d+
+        id: \d+
 
 
 oc_platform_add:
     path:      platform/add
     defaults: { _controller: OCPlatformBundle:Advert:add }
+
+oc_platform_edit:
+    path:      platform/edit/{id}
+    defaults:
+        _controller: OCPlatformBundle:Advert:add 
+    requirements:
+        id: \d+ 
+    
+oc_platform_delete:
+    path:      platform/delete/{id}
+    defaults:  
+        _controller: OCPlatformBundle:Advert:add 
+    requirements:
+        id: \d+   
