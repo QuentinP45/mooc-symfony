@@ -1,6 +1,10 @@
 oc_platform_home:
-    path:      /platform
-    defaults: { _controller: OCPlatformBundle:Advert:index }
+    path:      /platform/{page}
+    defaults: 
+        _controller: OCPlatformBundle:Advert:index
+        page:    1
+    requirements:
+        page:    \d*
 
 oc_platform_view:
     path:      platform/advert/{id}
