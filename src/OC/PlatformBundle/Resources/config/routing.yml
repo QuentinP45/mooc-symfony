@@ -21,13 +21,13 @@ oc_platform_add:
 oc_platform_edit:
     path:      platform/edit/{id}
     defaults:
-        _controller: OCPlatformBundle:Advert:add 
+        _controller: OCPlatformBundle:Advert:edit 
     requirements:
         id: \d+ 
     
 oc_platform_delete:
     path:      platform/delete/{id}
     defaults:  
-        _controller: OCPlatformBundle:Advert:add 
+        _controller: OCPlatformBundle:Advert:delete 
     requirements:
         id: \d+   
