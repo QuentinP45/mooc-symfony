@@ -15,7 +15,31 @@ class AdvertController extends Controller
         }
 
         return $this->render('@OCPlatform/Advert/index.html.twig', [
-            'title' => 'Hello world !',
+            'listAdverts' => [
+                [
+                    'title'   => 'Recherche développpeur Symfony',
+                    'id'      => 1,
+                    'author'  => 'Alexandre',
+                    'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',      
+                    'date'    => new \Datetime()
+                ],
+
+                [
+                    'title'   => 'Mission de webmaster',
+                    'id'      => 2,
+                    'author'  => 'Hugo',
+                    'content' => 'Nous recherchons un webmaster capable de maintenir notre site internet. Blabla…',
+                    'date'    => new \Datetime()
+                ],
+
+                [
+                    'title'   => 'Offre de stage webdesigner',
+                    'id'      => 3,
+                    'author'  => 'Mathieu',
+                    'content' => 'Nous proposons un poste pour webdesigner. Blabla…',
+                    'date'    => new \Datetime()
+                ],
+            ]
         ]);
     }
 
@@ -52,5 +76,26 @@ class AdvertController extends Controller
     public function deleteAction($id)
     {
         return $this->render('@OCPlatform/Advert/delete.html.twig');
+    }
+
+    public function menuAction($limit)
+    {
+        // On fixe en dur une liste ici, bien entendu par la suite
+        // on la récupérera depuis la BDD !
+
+        $listAdverts = [
+            ['id' => 2, 'title' => 'Recherche développeur Symfony'],
+            ['id' => 5, 'title' => 'Mission de webmaster'],
+            ['id' => 9, 'title' => 'Offre de stage webdesigner'],
+        ];
+  
+        return $this->render('@OCPlatform/Advert/menu.html.twig', [
+  
+        // Tout l'intérêt est ici : le contrôleur passe
+        // les variables nécessaires au template !
+  
+        'listAdverts' => $listAdverts
+  
+        ]);
     }
 }
