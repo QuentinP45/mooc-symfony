@@ -78,7 +78,17 @@ class AdvertController extends Controller
             return $this->redirectToRoute('oc_platform_view', ['id' => 5]);
         }
 
-        return $this->render('@OCPlatform/Advert/edit.html.twig');
+        $advert = [
+            'title'   => 'Recherche développpeur Symfony',
+            'id'      => $id,
+            'author'  => 'Alexandre',
+            'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
+            'date'    => new \Datetime()
+        ];
+
+        return $this->render('@OCPlatform/Advert/edit.html.twig', [
+            'advert' => $advert
+        ]);
     }
 
     public function deleteAction($id)
