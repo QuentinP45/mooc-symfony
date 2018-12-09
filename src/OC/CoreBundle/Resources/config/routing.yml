@@ -1,3 +1,7 @@
 oc_core_homepage:
-    path:     /
-    defaults: { _controller: OCCoreBundle:Default:index }
+    path:     /{home}
+    defaults: 
+        _controller: OCCoreBundle:Home:index
+        home: 'home'
+    requirements:
+        home: 'home'
