@@ -8,6 +8,6 @@ class HomeController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('OCCoreBundle:Home:index.html.twig');
+        return $this->render('@OCCore/Home/index.html.twig');
     }
 }
