@@ -4,10 +4,10 @@ namespace OC\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class HomeController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('OCCoreBundle:Default:index.html.twig');
+        return $this->render('OCCoreBundle:Home:index.html.twig');
     }
 }
