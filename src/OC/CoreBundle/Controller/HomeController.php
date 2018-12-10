@@ -7,12 +7,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
 {
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        if ($request->query->get('tag') === 'contact') {
-            $session = $request->getSession()->getFlashBag()->add('info', 'Page de contact en construction, merci de revenir plus tard !');
-        }
-
         return $this->render('@OCCore/Home/index.html.twig');
+    }
+
+    public function contactAction(Request $request)
+    {
+        $session = $request->getSession()->getFlashBag()->add('info', 'Page de contact en construction, merci de revenir plus tard !');
+        return $this->redirectToRoute('oc_core_homepage');
     }
 }
