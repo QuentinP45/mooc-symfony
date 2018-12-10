@@ -14,10 +14,18 @@
 </head>
 <body>
     <div class="container">
-        <div id="header" class="jumbotron">
-            <h1>Bienvenue</h1>
-        </div>
+        <header>
+            <div id="header" class="jumbotron">
+                <h1>Bienvenue</h1>
+            </div>
+        </header>
 
+            {% for message in app.flashes('info') %}
+                <div class="alert alert-info">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        
         <div>
             <h4>Dernières annonces de la plateforme</h4>
             
@@ -26,6 +34,12 @@
         </div>
 
         <hr />
+
+        <footer>
+            <div>
+                <a href="{{ path("oc_core_homepage", { 'tag': 'contact' }) }}" class="btn btn-default"><span class="glyphicon glyphicon-bullhorn"></span> Nous contacter</a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>      
