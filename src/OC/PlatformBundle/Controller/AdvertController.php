@@ -66,7 +66,7 @@ class AdvertController extends Controller
         $advert->setTitle('Recherche développeur Symfony.');
         $advert->setAuthor('Alexandre');
         $advert->setContent('Nous recherchons un développeur Symfony débutant sur Lyon. blablabla...');
-        
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($advert);
         $em->flush($advert);
@@ -75,7 +75,7 @@ class AdvertController extends Controller
             $session = $request->getSession();
             $session->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
             
-            return $this->redirectToRoute('oc_platform_view', ['id' => 5]);
+            return $this->redirectToRoute('oc_platform_view', ['id' => $advert->getId()]);
         }
         return $this->render('@OCPlatform/Advert/add.html.twig');
     }
