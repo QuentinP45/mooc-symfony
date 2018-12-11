@@ -46,13 +46,22 @@ class AdvertController extends Controller
 
     public function viewAction($id)
     {
-        $advert = [
-            'title'   => 'Recherche développpeur Symfony2',
-            'id'      => $id,     
-            'author'  => 'Alexandre',     
-            'content' => 'Nous recherchons un développeur Symfony2 débutant sur Lyon. Blabla…',     
-            'date'    => new \Datetime()     
-        ];
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Advert::class);
+
+        $advert = $repository->find($id);
+
+        if (null === $advert) {
+            throw new NotFoundHttpException("L'annonce d'id: \"$id\" n'existe pas");
+        }
+        // $advert = [
+        //     'title'   => 'Recherche développpeur Symfony2',
+        //     'id'      => $id,     
+        //     'author'  => 'Alexandre',     
+        //     'content' => 'Nous recherchons un développeur Symfony2 débutant sur Lyon. Blabla…',     
+        //     'date'    => new \Datetime()     
+        // ];
 
         return $this->render('@OCPlatform/Advert/view.html.twig', [
             'advert' => $advert,
