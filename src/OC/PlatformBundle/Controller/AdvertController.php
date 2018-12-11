@@ -142,4 +142,17 @@ class AdvertController extends Controller
   
         ]);
     }
+
+    public function editImageAction($advertId)
+    {
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Advert::class);
+        
+        $advert = $repository->find($advertId);
+
+        $advert->getImage()->setUrl('kaboom');
+
+        $em->flush();
+    }
 }
