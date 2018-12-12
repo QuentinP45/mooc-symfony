@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use OC\PlatformBundle\Entity\Advert;
 use OC\PlatformBundle\Entity\Image;
+use OC\PlatformBundle\Entity\Application;
 
 class AdvertController extends Controller
 {
@@ -82,8 +83,21 @@ class AdvertController extends Controller
 
         $advert->setImage($image);
 
+        $application1 = new Application();
+        $application1->setAuthor('Marine');
+        $application1->setContent('J\'ai toutes les qualités requises');
+        
+        $application2 = new Application();
+        $application2->setAuthor('Pierre');
+        $application2->setContent('Je suis très motivé');
+
+        $application1->setAdvert($advert);
+        $application2->setAdvert($advert);
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($advert);
+        $em->persist($application1);
+        $em->persist($application2);
         $em->flush();
 
         if ($request->isMethod('POST')) {
