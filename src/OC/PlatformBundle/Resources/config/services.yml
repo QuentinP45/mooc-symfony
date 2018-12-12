@@ -5,3 +5,6 @@ services:
     
     oc_platform.antispam:
         class: OC\PlatformBundle\Antispam\OCAntispam
+
+    OC\PlatformBundle\DataFixtures\ORM\LoadCategory:
+        tags: [doctrine.fixture.orm]
