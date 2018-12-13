@@ -8,3 +8,6 @@ services:
 
     OC\PlatformBundle\DataFixtures\ORM\LoadCategory:
         tags: [doctrine.fixture.orm]
+
+    OC\PlatformBundle\DataFixtures\ORM\LoadSkill:
+        tags: [doctrine.fixture.orm]
