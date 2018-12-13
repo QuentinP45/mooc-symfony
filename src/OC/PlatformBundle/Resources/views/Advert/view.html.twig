@@ -36,6 +36,19 @@
   </div>
 
   <div>
+    {% if not advert.categories.empty %}
+    <p>
+      Cette annonce est parue dans les categories suivantes :
+      {% for category in advert.categories %}
+        {{ category.name }} {% if not loop.last %},{% endif %}
+      {% endfor %}
+    <p>
+    {% else %}
+      <p>Cette annonce n'est rattachée à aucune catégorie</p>
+    {% endif %}
+  </div>
+
+  <div>
     <h2>Les candidatures</h2>
     {% for application in listApplication %}
       <p>Par {{ application.author }}, le {{ application.date|date('d/m/Y') }}</p>
