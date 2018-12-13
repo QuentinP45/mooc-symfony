@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use OC\PlatformBundle\Entity\Advert;
 use OC\PlatformBundle\Entity\Image;
 use OC\PlatformBundle\Entity\Application;
+use OC\PlatformBundle\Entity\Category;
 
 class AdvertController extends Controller
 {
@@ -107,6 +108,22 @@ class AdvertController extends Controller
 
     public function editAction($id, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $advert = $em->getRepository(Advert::class)->find($id);
+
+        if (null === $advert) {
+            throw new NotFoundHttpException("L'annonce d'id : $id n'existe pas.");
+        }
+
+        $listCategories = $em->getRepository(Category::class)->findAll();
+
+        foreach ($listCategories as $category) {
+            $advert->addCategory($category);
+        }
+
+        $em->flush();
+
         if ($request->isMethod('POST')) {
             $session = $request->getSession();
             $session->getFlashBag()->add('notice', 'Annonce bien modifiée.');

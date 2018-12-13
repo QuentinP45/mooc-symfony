@@ -229,11 +229,11 @@ class Advert
     /**
      * Add category.
      *
-     * @param \OC\PlatformBundle\Category $category
+     * @param \OC\PlatformBundle\Entity\Category $category
      *
      * @return Advert
      */
-    public function addCategory(\OC\PlatformBundle\Category $category)
+    public function addCategory(\OC\PlatformBundle\Entity\Category $category)
     {
         $this->categories[] = $category;
 
@@ -243,11 +243,11 @@ class Advert
     /**
      * Remove category.
      *
-     * @param \OC\PlatformBundle\Category $category
+     * @param \OC\PlatformBundle\Entity\Category $category
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeCategory(\OC\PlatformBundle\Category $category)
+    public function removeCategory(\OC\PlatformBundle\Entity\Category $category)
     {
         return $this->categories->removeElement($category);
     }
