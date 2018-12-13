@@ -63,9 +63,14 @@ class AdvertController extends Controller
             ->getRepository(Application::class)
             ->findBy(['advert' => $advert]);
 
+        $listAdvertSkills = $em
+            ->getRepository(AdvertSkill::class)
+            ->findBy(['advert' => $advert]);
+
         return $this->render('@OCPlatform/Advert/view.html.twig', [
             'advert' => $advert,
             'listApplication' => $listApplications,
+            'listAdvertSkills' => $listAdvertSkills,
         ]);
     }
 
