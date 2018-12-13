@@ -4,12 +4,13 @@ namespace OC\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use OC\PlatformBundle\Entity\Advert;
 use OC\PlatformBundle\Entity\Image;
 use OC\PlatformBundle\Entity\Application;
 use OC\PlatformBundle\Entity\Category;
+use OC\PlatformBundle\Entity\Skill;
+use OC\PlatformBundle\Entity\AdvertSkill;
 
 class AdvertController extends Controller
 {
@@ -70,6 +71,8 @@ class AdvertController extends Controller
 
     public function addAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $advert = new Advert();
         $advert->setTitle('Recherche développeur Symfony.');
         $advert->setAuthor('Justine');
@@ -92,7 +95,18 @@ class AdvertController extends Controller
         $application1->setAdvert($advert);
         $application2->setAdvert($advert);
 
-        $em = $this->getDoctrine()->getManager();
+        $listSkills = $em->getRepository(Skill::class)->findAll();
+
+        foreach ($listSkills as $skill) {
+            $advertSkill = new AdvertSkill();
+
+            $advertSkill->setSkill($skill);
+            $advertSkill->setAdvert($advert);
+            $advertSkill->setLevel('Expert');
+
+            $em->persist($advertSkill);
+        }
+
         $em->persist($advert);
         $em->persist($application1);
         $em->persist($application2);
