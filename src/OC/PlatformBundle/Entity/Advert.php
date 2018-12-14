@@ -15,6 +15,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Advert
 {
     /**
+     * @ORM\Column(name="nb_applications", type="integer");   
+     */
+    private $nbApplications = 0;
+
+    /**
      * @ORM\OneToMany(targetEntity="OC\PlatformBundle\Entity\Application", mappedBy="advert")
      */
     private $applications;
@@ -342,5 +347,29 @@ class Advert
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set nbApplications.
+     *
+     * @param int $nbApplications
+     *
+     * @return Advert
+     */
+    public function setNbApplications($nbApplications)
+    {
+        $this->nbApplications = $nbApplications;
+
+        return $this;
+    }
+
+    /**
+     * Get nbApplications.
+     *
+     * @return int
+     */
+    public function getNbApplications()
+    {
+        return $this->nbApplications;
     }
 }
