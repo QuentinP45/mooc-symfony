@@ -89,6 +89,16 @@ class Advert
         $this->applications = new ArrayCollection();
     }
 
+    public function increaseApplication()
+    {
+        $this->nbApplications++;
+    }
+
+    public function decreaseApplication()
+    {
+        $this->nbApplications--;
+    }
+
     /**
      * @ORM\PreUpdate
      */
