@@ -19,6 +19,11 @@ class Advert
     private $applications;
 
     /**
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatatedAt;
+
+    /**
      * @ORM\ManyToMany(targetEntity="OC\PlatformBundle\Entity\Category", cascade={"persist"})
      * @ORM\JoinTable(name="oc_advert_category")
      */
@@ -304,5 +309,29 @@ class Advert
     public function getApplications()
     {
         return $this->applications;
+    }
+
+    /**
+     * Set updatatedAt.
+     *
+     * @param \DateTime|null $updatatedAt
+     *
+     * @return Advert
+     */
+    public function setUpdatatedAt($updatatedAt = null)
+    {
+        $this->updatatedAt = $updatatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatatedAt.
+     *
+     * @return \DateTime|null
+     */
+    public function getUpdatatedAt()
+    {
+        return $this->updatatedAt;
     }
 }
