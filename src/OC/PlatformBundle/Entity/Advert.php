@@ -22,7 +22,7 @@ class Advert
     /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
-    private $updatatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\ManyToMany(targetEntity="OC\PlatformBundle\Entity\Category", cascade={"persist"})
@@ -82,6 +82,14 @@ class Advert
         $this->date = new \Datetime();
         $this->categories = new ArrayCollection();
         $this->applications = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateDate()
+    {
+        $this->setUpdatedAt(new \Datetime());
     }
 
     /**
@@ -313,26 +321,26 @@ class Advert
     }
 
     /**
-     * Set updatatedAt.
+     * Set updatedAt.
      *
-     * @param \DateTime|null $updatatedAt
+     * @param \DateTime|null $updatedAt
      *
      * @return Advert
      */
-    public function setUpdatatedAt($updatatedAt = null)
+    public function setUpdatedAt($updatedAt = null)
     {
-        $this->updatatedAt = $updatatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     /**
-     * Get updatatedAt.
+     * Get updatedAt.
      *
      * @return \DateTime|null
      */
-    public function getUpdatatedAt()
+    public function getUpdatedAt()
     {
-        return $this->updatatedAt;
+        return $this->updatedAt;
     }
 }
