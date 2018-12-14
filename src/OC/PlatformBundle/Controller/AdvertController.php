@@ -132,6 +132,8 @@ class AdvertController extends Controller
 
         $advert = $em->getRepository(Advert::class)->find($id);
 
+        $advert->setTitle('CallBack updatedAt Ok');
+
         if (null === $advert) {
             throw new NotFoundHttpException("L'annonce d'id : $id n'existe pas.");
         }
