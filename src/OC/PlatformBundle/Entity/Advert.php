@@ -14,6 +14,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Advert
 {
     /**
+     * @ORM\OneToMany(targetEntity="OC\PlatformBundle\Entity\Application", mappedBy="advert")
+     */
+    private $applications;
+
+    /**
      * @ORM\ManyToMany(targetEntity="OC\PlatformBundle\Entity\Category", cascade={"persist"})
      * @ORM\JoinTable(name="oc_advert_category")
      */
@@ -70,6 +75,7 @@ class Advert
     {
         $this->date = new \Datetime();
         $this->categories = new ArrayCollection();
+        $this->applications = new ArrayCollection();
     }
 
     /**
@@ -260,5 +266,43 @@ class Advert
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Add application.
+     *
+     * @param \OC\PlatformBundle\Entity\Application $application
+     *
+     * @return Advert
+     */
+    public function addApplication(\OC\PlatformBundle\Entity\Application $application)
+    {
+        $this->applications[] = $application;
+
+        $application->setAdvert($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove application.
+     *
+     * @param \OC\PlatformBundle\Entity\Application $application
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeApplication(\OC\PlatformBundle\Entity\Application $application)
+    {
+        return $this->applications->removeElement($application);
+    }
+
+    /**
+     * Get applications.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getApplications()
+    {
+        return $this->applications;
     }
 }
