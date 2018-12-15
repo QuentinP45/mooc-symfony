@@ -2,11 +2,13 @@
 
 namespace OC\PlatformBundle\Email;
 
+use OC\PlatformBundle\Entity\Application;
+
 class ApplicationMailer
 {
     private $mailer;
 
-    public function __construct(\Swuft_Mailer $mailer)
+    public function __construct(\Swift_Mailer $mailer)
     {
         $this->mailer = $mailer;
     }
@@ -15,12 +17,12 @@ class ApplicationMailer
     {
         $message = new \Swift_Message(
             'Nouvelle candidature',
-            'VOus avez reçu une nouvelle candidature.'
+            'Vous avez reçu une nouvelle candidature.'
         );
 
         $message
-            ->addTo($application->getAdvert()->getAuthor())
-            ->addFrom('tyijp@yopmail.com')
+            ->addTo('testsmtp180@gmail.com')
+            ->addFrom('testsmtp180@gmail.com')
         ;
 
         $this->mailer->send($message);
