@@ -20,32 +20,16 @@ class AdvertController extends Controller
             throw new NotFoundHttpException('Page ' . $page . ' inexistante.');
         }
 
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository(Advert::class);
+
+        $listAdverts = $repository->findAll();
+
+
         return $this->render('@OCPlatform/Advert/index.html.twig', [
-            'listAdverts' => [
-                [
-                    'title'   => 'Recherche développpeur Symfony',
-                    'id'      => 1,
-                    'author'  => 'Alexandre',
-                    'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',      
-                    'date'    => new \Datetime()
-                ],
-
-                [
-                    'title'   => 'Mission de webmaster',
-                    'id'      => 2,
-                    'author'  => 'Hugo',
-                    'content' => 'Nous recherchons un webmaster capable de maintenir notre site internet. Blabla…',
-                    'date'    => new \Datetime()
-                ],
-
-                [
-                    'title'   => 'Offre de stage webdesigner',
-                    'id'      => 3,
-                    'author'  => 'Mathieu',
-                    'content' => 'Nous proposons un poste pour webdesigner. Blabla…',
-                    'date'    => new \Datetime()
-                ],
-            ]
+            'listAdverts' => $listAdverts,
         ]);
     }
 
