@@ -11,3 +11,8 @@ services:
 
     OC\PlatformBundle\DataFixtures\ORM\LoadSkill:
         tags: [doctrine.fixture.orm]
+
+    oc_platform.email.application_mailer:
+        class: OC\PlatformBundle\Email\ApplicationMailer
+        arguments:
+            - "@mailer"
