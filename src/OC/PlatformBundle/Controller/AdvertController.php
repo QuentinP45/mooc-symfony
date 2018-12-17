@@ -25,8 +25,7 @@ class AdvertController extends Controller
             ->getManager()
             ->getRepository(Advert::class);
 
-        $listAdverts = $repository->findAll();
-
+        $listAdverts = $repository->getAdverts();
 
         return $this->render('@OCPlatform/Advert/index.html.twig', [
             'listAdverts' => $listAdverts,
@@ -60,45 +59,6 @@ class AdvertController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $advert = new Advert();
-        $advert->setTitle('Recherche développeur Symfony.');
-        $advert->setAuthor('Justine');
-        $advert->setContent('Nous recherchons un développeur Symfony débutant sur Orléans. blablabla...');
-
-        $image = new Image();
-        $image->setUrl('http://sdz-upload.s3.amazonaws.com/prod/upload/job-de-reve.jpg');
-        $image->setAlt('Job de rêve');
-
-        $advert->setImage($image);
-
-        $application1 = new Application();
-        $application1->setAuthor('Marine');
-        $application1->setContent('J\'ai toutes les qualités requises');
-        
-        $application2 = new Application();
-        $application2->setAuthor('Pierre');
-        $application2->setContent('Je suis très motivé');
-
-        $application1->setAdvert($advert);
-        $application2->setAdvert($advert);
-
-        $listSkills = $em->getRepository(Skill::class)->findAll();
-
-        foreach ($listSkills as $skill) {
-            $advertSkill = new AdvertSkill();
-
-            $advertSkill->setSkill($skill);
-            $advertSkill->setAdvert($advert);
-            $advertSkill->setLevel('Expert');
-
-            $em->persist($advertSkill);
-        }
-
-        $em->persist($advert);
-        $em->persist($application1);
-        $em->persist($application2);
-        $em->flush();
-
         if ($request->isMethod('POST')) {
             $session = $request->getSession();
             $session->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
@@ -118,16 +78,6 @@ class AdvertController extends Controller
         if (null === $advert) {
             throw new NotFoundHttpException("L'annonce d'id : $id n'existe pas.");
         }
-
-        $advert->setTitle('Nouveau titre');
-
-        $listCategories = $em->getRepository(Category::class)->findAll();
-
-        foreach ($listCategories as $category) {
-            $advert->addCategory($category);
-        }
-
-        $em->flush();
 
         if ($request->isMethod('POST')) {
             $session = $request->getSession();
@@ -167,7 +117,15 @@ class AdvertController extends Controller
             ->getManager()
             ->getRepository(Advert::class);
 
-        $listAdverts = $repository->getLastAdverts(3);
+        $listAdverts = $repository
+            // ->getLastAdverts(3);
+            ->findBy(
+                [],
+                ['date' => 'DESC']
+                , 
+                $limit, 
+                0
+            );
 
         return $this->render('@OCPlatform/Advert/menu.html.twig', [
         'listAdverts' => $listAdverts,
