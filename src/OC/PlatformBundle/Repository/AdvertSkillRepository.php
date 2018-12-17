@@ -10,4 +10,17 @@ namespace OC\PlatformBundle\Repository;
  */
 class AdvertSkillRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getListAdvertSkills($advertId)
+    {
+        $qb = $this
+            ->createQueryBuilder('a')
+            ->innerJoin('a.skill', 's')
+            ->where('a.advert = :advertId')
+            ->setParameter(':advertId', $advertId)
+            ->addSelect('s');
+
+        return $query = $qb
+            ->getQuery()
+            ->getResult();
+    }
 }
