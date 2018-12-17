@@ -10,30 +10,16 @@ namespace OC\PlatformBundle\Repository;
  */
 class AdvertRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getAdvertWithCategories(array $categoryNames)
+    public function getAdverts()
     {
-        $qb = $this
-        ->createQueryBuilder('a')
-        ->innerJoin('a.categories', 'c')
-        ->addSelect('c');
-
-        $qb->where($qb->expr()->in('c.name', $categoryNames));
-
-        $query = $qb->getQuery();
+        $query = $this->createQueryBuilder('a')
+            ->leftJoin('a.categories', 'c')
+            ->addSelect('c')
+            ->leftJoin('a.image', 'i')
+            ->addSelect('i')
+            ->orderBy('a.date', 'DESC')
+            ->getQuery();
 
         return $query->getResult();
-    }
-
-    public function getLastAdverts($limit)
-    {
-        $qb = $this 
-            ->createQueryBuilder('a')
-            ->setMaxResults($limit);
-            
-        $qb->orderBy('a.id', 'DESC');
-
-        return $query = $qb
-            ->getQUery()
-            ->getResult();
     }
 }
