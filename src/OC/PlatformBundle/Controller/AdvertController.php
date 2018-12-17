@@ -43,13 +43,11 @@ class AdvertController extends Controller
             throw new NotFoundHttpException("L'annonce d'id: \"$id\" n'existe pas");
         }
 
-        $listApplications = $em
-            ->getRepository(Application::class)
-            ->findBy(['advert' => $advert]);
+        $listApplications = $advert->getApplications();
 
         $listAdvertSkills = $em
             ->getRepository(AdvertSkill::class)
-            ->findBy(['advert' => $advert]);
+            ->getListAdvertSkills($id);
 
         return $this->render('@OCPlatform/Advert/view.html.twig', [
             'advert' => $advert,

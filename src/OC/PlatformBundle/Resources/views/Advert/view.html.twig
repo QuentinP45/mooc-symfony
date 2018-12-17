@@ -37,9 +37,9 @@
   
   <div>
     {% if listAdvertSkills|length > 0 %}
-      <p>Cette annonce requière les compétences suivantes :</p>
+      <p>Cette annonce requiert les compétences suivantes :</p>
       <ul>
-        {% for advertSkill in listAdvertSkills %}
+        {% for advertSkill in listAdvertSkills %} 
         <li>{{ advertSkill.skill.name }} : niveau {{ advertSkill.level }}</li>
         {% endfor %}
       </ul>
