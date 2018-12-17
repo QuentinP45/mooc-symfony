@@ -105,6 +105,7 @@ class AdvertController extends Controller
             
             return $this->redirectToRoute('oc_platform_view', ['id' => $advert->getId()]);
         }
+
         return $this->render('@OCPlatform/Advert/add.html.twig');
     }
 
@@ -114,11 +115,11 @@ class AdvertController extends Controller
 
         $advert = $em->getRepository(Advert::class)->find($id);
 
-        $advert->setTitle('CallBack updatedAt Ok');
-
         if (null === $advert) {
             throw new NotFoundHttpException("L'annonce d'id : $id n'existe pas.");
         }
+
+        $advert->setTitle('Nouveau titre');
 
         $listCategories = $em->getRepository(Category::class)->findAll();
 
@@ -132,16 +133,8 @@ class AdvertController extends Controller
             $session = $request->getSession();
             $session->getFlashBag()->add('notice', 'Annonce bien modifiée.');
             
-            return $this->redirectToRoute('oc_platform_view', ['id' => 5]);
+            return $this->redirectToRoute('oc_platform_view', ['id' => $id]);
         }
-
-        $advert = [
-            'title'   => 'Recherche développpeur Symfony',
-            'id'      => $id,
-            'author'  => 'Alexandre',
-            'content' => 'Nous recherchons un développeur Symfony débutant sur Lyon. Blabla…',
-            'date'    => new \Datetime()
-        ];
 
         return $this->render('@OCPlatform/Advert/edit.html.twig', [
             'advert' => $advert
