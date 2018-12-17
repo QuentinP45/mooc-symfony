@@ -23,4 +23,17 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getResult();
     }
+
+    public function getLastAdverts($limit)
+    {
+        $qb = $this 
+            ->createQueryBuilder('a')
+            ->setMaxResults($limit);
+            
+        $qb->orderBy('a.id', 'DESC');
+
+        return $query = $qb
+            ->getQUery()
+            ->getResult();
+    }
 }
