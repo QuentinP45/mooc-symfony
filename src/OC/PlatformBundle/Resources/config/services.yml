@@ -23,3 +23,8 @@ services:
             - "@oc_platform.email.application_mailer"
         tags:
             - { name: doctrine.event_listener, event: postPersist }
+
+    oc_platform.purge.advert_cleaner:
+        class: OC\PlatformBundle\Purge\AdvertCleaner
+        arguments:
+            - "@doctrine.orm.default_entity_manager"

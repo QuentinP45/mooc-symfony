@@ -12,8 +12,17 @@ use OC\PlatformBundle\Entity\Category;
 use OC\PlatformBundle\Entity\Skill;
 use OC\PlatformBundle\Entity\AdvertSkill;
 
+
 class AdvertController extends Controller
 {
+    public function purgeAction($days)
+    {
+        if ($this->get('oc_platform.purge.advert_cleaner', ['days' => $days])) {
+            dump('Service advert_cleaner ok');
+        };
+        die();
+    }
+
     public function indexAction($page)
     {
         if ($page < 1) {
