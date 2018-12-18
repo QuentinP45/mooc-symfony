@@ -16,13 +16,24 @@ use OC\PlatformBundle\Entity\AdvertSkill;
 
 class AdvertController extends Controller
 {
-    public function purgeAction($days)
+    public function purgeAction($days, Request $request)
     {
         $advertCleaner = $this->get('oc_platform.purge.advert_cleaner');
 
-            $advertCleaner->purge($days);
+        $advertCleaner->purge($days);
 
-        return new Response('Récupération des annonces avec une date plus vieille que X');
+        $purgedAdverts = $advertCleaner->getCountPurgedAdverts();
+
+        if ($purgedAdverts > 0) {
+            $session = $request
+                ->getSession();
+
+            $session
+                ->getFlashBag()
+                ->add('info', "$purgedAdverts annonce(s) supprimée(s) de la liste");
+        }
+
+        return $this->redirectToRoute('oc_platform_home');
     }
 
     public function indexAction($page)

@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block ocplatform_body %}
+  {% for message in app.flashes('info') %}
+    <div class="alert alert-info">
+        {{ message }}
+    </div>
+  {% endfor %}
   <h2>Liste des annonces</h2>
   <ul>
 

@@ -8,6 +8,7 @@ class AdvertCleaner
 {
     private $em;
     private $currentDate;
+    private $countPurgedAdverts = 0;
 
     public function __construct($em)
     {
@@ -19,6 +20,7 @@ class AdvertCleaner
     {
         $currentDate = $this->currentDate;
         $interval = 'P' . $days . 'D';
+
         return $dateLimit = $currentDate->sub(new \DateInterval($interval));
     }
 
@@ -34,11 +36,30 @@ class AdvertCleaner
         $repository = $em->getRepository(Advert::class);
 
         $listAdverts = $repository->getAdvertsToPurge($dateLimit);
-
-        // Vérifier que l'attribut qui contient une 
-        // collection soit vide : attribut IS empty
         
-        // Supprimer les annonces qui correspondent 
-        // aux deux derniers critères
+        foreach( $listAdverts as $advert ) {
+            
+            // Vérifier que l'attribut qui contient une 
+            // collection soit vide : attribut IS EMPTY
+            
+            $advert->getApplications();
+
+            if ( $advert->getApplications()->isEmpty() ) {
+
+                // Supprimer les annonces qui correspondent 
+                // aux deux derniers critères
+
+                $em->remove($advert);
+
+                $this->countPurgedAdverts++;
+            }
+
+            $em->flush();
+        }
+    }
+
+    public function getCountPurgedAdverts()
+    {
+        return $this->countPurgedAdverts;
     }
 }
