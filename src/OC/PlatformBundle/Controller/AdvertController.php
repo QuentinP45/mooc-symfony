@@ -4,6 +4,7 @@ namespace OC\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use OC\PlatformBundle\Entity\Advert;
 use OC\PlatformBundle\Entity\Image;
@@ -17,10 +18,11 @@ class AdvertController extends Controller
 {
     public function purgeAction($days)
     {
-        if ($this->get('oc_platform.purge.advert_cleaner', ['days' => $days])) {
-            dump('Service advert_cleaner ok');
-        };
-        die();
+        $advertCleaner = $this->get('oc_platform.purge.advert_cleaner');
+
+            $advertCleaner->purge($days);
+
+        return new Response('Récupération des annonces avec une date plus vieille que X');
     }
 
     public function indexAction($page)

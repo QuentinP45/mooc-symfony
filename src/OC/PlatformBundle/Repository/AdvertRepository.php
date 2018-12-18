@@ -22,4 +22,14 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
 
         return $query->getResult();
     }
+
+    public function getAdvertsToPurge($dateLimit)
+    {
+        $query = $this->createQueryBuilder('a')
+            ->where('a.updatedAt < :dateLimit')
+            ->setParameter(':dateLimit', $dateLimit)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
