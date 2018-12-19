@@ -93,12 +93,27 @@ class AdvertController extends Controller
             ->add('title', TextType::class)
             ->add('content', TextareaType::class)
             ->add('author', TextType::class)
-            ->add('published', CheckboxType::class)
+            ->add('published', CheckboxType::class, [
+                'required' => false,
+            ])
             ->add('save', SubmitType::class)
         ;
 
-
         $form = $formBuilder->getForm();
+
+        if ($request->isMethod('POST')) {
+            
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($advert);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+                return $this->redirectToRoute('oc_platform_view', ['id' => $advert->getId()]);
+            }
+        }
 
         return $this->render('@OCPlatform/Advert/add.html.twig', [
             'form' => $form->createView(),
