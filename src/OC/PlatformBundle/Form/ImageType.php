@@ -4,7 +4,7 @@ namespace OC\PlatformBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Form\Extensions\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageType extends AbstractType
@@ -16,7 +16,7 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('url', TextType::class)
-            ->add('alt', TextTypeClass)
+            ->add('alt', TextType::class)
         ;
     }
     

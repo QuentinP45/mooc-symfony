@@ -27,6 +27,7 @@ class AdvertType extends AbstractType
             ->add('published', CheckboxType::class, [
                 'required' => false,
             ])
+            ->add('image', ImageType::class)
             ->add('save', SubmitType::class)
         ;
     }
