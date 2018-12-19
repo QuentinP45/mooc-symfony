@@ -12,7 +12,12 @@ use OC\PlatformBundle\Entity\Application;
 use OC\PlatformBundle\Entity\Category;
 use OC\PlatformBundle\Entity\Skill;
 use OC\PlatformBundle\Entity\AdvertSkill;
-
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AdvertController extends Controller
 {
@@ -79,16 +84,25 @@ class AdvertController extends Controller
 
     public function addAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $advert = new Advert();
 
-        if ($request->isMethod('POST')) {
-            $session = $request->getSession();
-            $session->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-            
-            return $this->redirectToRoute('oc_platform_view', ['id' => $advert->getId()]);
-        }
+        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $advert);
 
-        return $this->render('@OCPlatform/Advert/add.html.twig');
+        $formBuilder
+            ->add('date', DateType::class)
+            ->add('title', TextType::class)
+            ->add('content', TextareaType::class)
+            ->add('author', TextType::class)
+            ->add('published', CheckboxType::class)
+            ->add('save', SubmitType::class)
+        ;
+
+
+        $form = $formBuilder->getForm();
+
+        return $this->render('@OCPlatform/Advert/add.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     public function editAction($id, Request $request)
