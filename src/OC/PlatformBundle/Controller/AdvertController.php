@@ -12,12 +12,7 @@ use OC\PlatformBundle\Entity\Application;
 use OC\PlatformBundle\Entity\Category;
 use OC\PlatformBundle\Entity\Skill;
 use OC\PlatformBundle\Entity\AdvertSkill;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use OC\PlatformBundle\Form\AdvertType;
 
 class AdvertController extends Controller
 {
@@ -86,20 +81,7 @@ class AdvertController extends Controller
     {
         $advert = new Advert();
 
-        $formBuilder = $this->get('form.factory')->createBuilder(FormType::class, $advert);
-
-        $formBuilder
-            ->add('date', DateType::class)
-            ->add('title', TextType::class)
-            ->add('content', TextareaType::class)
-            ->add('author', TextType::class)
-            ->add('published', CheckboxType::class, [
-                'required' => false,
-            ])
-            ->add('save', SubmitType::class)
-        ;
-
-        $form = $formBuilder->getForm();
+        $form = $this->get('form.factory')->create(AdvertType::class, $advert);
 
         if ($request->isMethod('POST')) {
             
