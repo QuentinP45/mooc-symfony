@@ -121,14 +121,6 @@
 		</div>
 	</div>
 
-	<div id="template-container"></div>
-
-	<div class="form-group">
-		<div class="col-sm-2 col-sm-offset-2">
-			<a href="#" id="add_category" class="btn btn-default">Ajouter une catégorie</a>
-		</div>
-	</div>
-
 	<div class="form-group">
 		<div class="col-sm-2 col-sm-offset-2">
 
@@ -140,27 +132,3 @@
 	{{ form_rest(form) }}
 	{{ form_end(form) }}
 </div>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-<script type="text/javascript">
-
-	$(document).ready(function() {
-		var container = $('div#template-container');
-		var dataPrototype = '<div class="form-group"><label class="control-label col-sm-2">__name__label__</label><div id="oc_platformbundle_advert_categories___name__" class="col-sm-10"><div class="form-group"><label class="control-label col-sm-2" for="oc_platformbundle_advert_categories___name___name">Name</label><div class="col-sm-10"><input type="text" id="oc_platformbundle_advert_categories___name___name" name="oc_platformbundle_advert[categories][__name__][name]" class="form-control" /></div></div></div></div>';
-
-		$("#add_category").click(function(e) {
-			newPrototype(dataPrototype);
-			e.preventDefault();
-		})
-
-		function newPrototype(dp) {
-			var inputs = container.find(':input').length;
-			var newPrototype = dp
-				.replace(/__name__label__/g, 'Catégorie n°' + (inputs + 1))
-				.replace(/__name__/g, inputs); 
-
-			container.append(newPrototype);
-		}; 
-	});    
-</script>
