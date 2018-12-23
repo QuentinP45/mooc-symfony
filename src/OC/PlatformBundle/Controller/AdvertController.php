@@ -13,6 +13,7 @@ use OC\PlatformBundle\Entity\Category;
 use OC\PlatformBundle\Entity\Skill;
 use OC\PlatformBundle\Entity\AdvertSkill;
 use OC\PlatformBundle\Form\AdvertType;
+use OC\PlatformBundle\Form\AdvertEditType;
 
 class AdvertController extends Controller
 {
@@ -112,15 +113,27 @@ class AdvertController extends Controller
             throw new NotFoundHttpException("L'annonce d'id : $id n'existe pas.");
         }
 
+        $form = $this->get('form.factory')->create(AdvertEditType::class, $advert);
+
+
         if ($request->isMethod('POST')) {
-            $session = $request->getSession();
-            $session->getFlashBag()->add('notice', 'Annonce bien modifiée.');
-            
-            return $this->redirectToRoute('oc_platform_view', ['id' => $id]);
+
+            $form->handleRequest($request);
+
+            if ($form->isValid()) {
+
+                $em->flush();
+
+                $session = $request->getSession();
+                $session->getFlashBag()->add('notice', 'Annonce bien modifiée.');
+                
+                return $this->redirectToRoute('oc_platform_view', ['id' => $id]);
+            }
         }
 
         return $this->render('@OCPlatform/Advert/edit.html.twig', [
-            'advert' => $advert
+            'form' => $form->createView(),
+            'advert' => $advert,
         ]);
     }
 
