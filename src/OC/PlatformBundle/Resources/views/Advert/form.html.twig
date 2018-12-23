@@ -4,27 +4,31 @@
 	{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 	{{ form_errors(form) }}
 
-	<div class="form-group">
+	{% if form.date is defined %}
 
-		{{ form_label(form.date, "Date", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-		{{ form_errors(form.date) }}
+		<div class="form-group">
 
-		<div class="col-sm-2">
+			{{ form_label(form.date, "Date", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+			{{ form_errors(form.date) }}
 
-			{{ form_widget(form.date.month, {'attr': {'class': 'form-control'}}) }}
+			<div class="col-sm-2">
 
+				{{ form_widget(form.date.month, {'attr': {'class': 'form-control'}}) }}
+
+			</div>
+			<div class="col-sm-2 ">
+
+				{{ form_widget(form.date.day, {'attr': {'class': 'form-control'}}) }}
+
+			</div>
+			<div class="col-sm-2 ">
+
+				{{ form_widget(form.date.year, {'attr': {'class': 'form-control'}}) }}
+
+			</div>
 		</div>
-		<div class="col-sm-2 ">
 
-			{{ form_widget(form.date.day, {'attr': {'class': 'form-control'}}) }}
-
-		</div>
-		<div class="col-sm-2 ">
-
-			{{ form_widget(form.date.year, {'attr': {'class': 'form-control'}}) }}
-
-		</div>
-	</div>
+	{% endif %}
 
 	<div class="form-group">
 	
