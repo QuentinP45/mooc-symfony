@@ -35,6 +35,7 @@ class Image
      */
     private $alt;
 
+    private $file;
 
     /**
      * Get id.
@@ -92,5 +93,15 @@ class Image
     public function getAlt()
     {
         return $this->alt;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file = null)
+    {
+        $this->file = $file;
     }
 }
