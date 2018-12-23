@@ -104,4 +104,29 @@ class Image
     {
         $this->file = $file;
     }
+
+    public function upload()
+    {
+        if (null === $this->file) {
+            return;
+        }
+        
+        $name = $this->file->getClientOriginalName();
+
+        $this->file->move($this->getUploadRootDir(), $name);
+
+        $this->url = $name;
+        
+        $this->alt = $name;
+    }
+
+    public function getUploadDir()
+    {
+        return 'uploads/img';
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
 }
