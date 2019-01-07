@@ -18,7 +18,7 @@
     
     {% if advert.image %}
     <div>
-      <img src="{{ advert.image.url }}" alt="{{ advert.image.alt }}" />
+      <img src="/{{advert.image.uploadDir}}/{{ advert.image.url }}" alt="{{ advert.image.alt }}" />
     </div>
     {% endif %}
 
