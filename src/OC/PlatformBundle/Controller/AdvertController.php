@@ -141,19 +141,20 @@ class AdvertController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        
         $advert = $em->getrepository(Advert::class)->find($id);
-
+        
+        
         if (null === $advert) {
             throw new NotFoundHttpException("L'annonce d'id : $id n'existe pas.");
         }
 
-        foreach ($advert->getCategories() as $category) {
-            $advert->removeCategory($category);
-        }
+        $form = $this->get('form.factory')->create();
 
-        $em->flush();
-
-        return $this->render('@OCPlatform/Advert/delete.html.twig');
+        return $this->render('@OCPlatform/Advert/delete.html.twig', [
+            'advert' => $advert,
+            'form' => $form->createView(),
+        ]);
     }
 
     public function menuAction($limit)
