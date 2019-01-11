@@ -137,7 +137,7 @@ class AdvertController extends Controller
         ]);
     }
 
-    public function deleteAction($id)
+    public function deleteAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -150,6 +150,19 @@ class AdvertController extends Controller
         }
 
         $form = $this->get('form.factory')->create();
+
+        if ($request->isMethod('POST')) {
+            $submittedToken = $request->request->get('token');
+            
+            if ($this->isCsrfTokenValid('token-csrf', $submittedToken)) {
+                $em->remove($advert);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('info', "L'annonce a bien été supprimée.");
+
+                return $this->redirectToRoute('oc_platform_home');
+            }
+        }
 
         return $this->render('@OCPlatform/Advert/delete.html.twig', [
             'advert' => $advert,
