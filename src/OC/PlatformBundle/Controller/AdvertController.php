@@ -90,6 +90,9 @@ class AdvertController extends Controller
 
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
+
+                $advert->setIp($request->getClientIp());
+
                 $em->persist($advert);
                 $em->flush();
 

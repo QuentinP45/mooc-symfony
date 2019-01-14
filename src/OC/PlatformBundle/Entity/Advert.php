@@ -18,6 +18,14 @@ use OC\PlatformBundle\Validator\Antiflood;
 class Advert
 {
     /**
+     * @var string
+     *
+     * @ORM\Column(name="ip", type="string", length=255)
+     * 
+     */
+    private $ip;
+
+    /**
      * @Gedmo\Slug(fields={"title"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
@@ -420,5 +428,29 @@ class Advert
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set ip.
+     *
+     * @param string $ip
+     *
+     * @return Advert
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+
+        return $this;
+    }
+
+    /**
+     * Get ip.
+     *
+     * @return string
+     */
+    public function getIp()
+    {
+        return $this->ip;
     }
 }
