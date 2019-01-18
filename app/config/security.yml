@@ -3,8 +3,8 @@
 security:
 
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_ADMIN: [ROLE_AUTHOR, ROLE_MODERATOR]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
@@ -13,7 +13,7 @@ security:
                 users:
                     ryan:
                         password: ryanpass
-                        roles: 'ROLE_USER'
+                        roles: 'ROLE_AUTHOR'
                     admin:
                         password: kitten
                         roles: 'ROLE_ADMIN'
