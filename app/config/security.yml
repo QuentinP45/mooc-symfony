@@ -9,12 +9,13 @@ security:
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         main:
-            entity:
-                class:    OC\UserBundle\Entity\User
-                property: username
+            # entity:
+            #     class:    OC\UserBundle\Entity\User
+            #     property: username
+            id: fos_user.user_provider.username
 
     encoders:
-        OC\UserBundle\Entity\User: plaintext
+        OC\UserBundle\Entity\User: sha512
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -38,6 +39,9 @@ security:
             logout: 
                 path:   /logout
                 target: /
+
+            remember_me:
+                secret: %secret%
 
     access_control:
         
