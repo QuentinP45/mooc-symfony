@@ -15,6 +15,19 @@
 <body>
     <div class="container">
         <header>
+            <div>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <p class="text-right">
+                        Connecté en tant que {{ app.user.username }}
+                        -
+                        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                    </p>
+                {% else %}
+                    <p class="text-right">
+                        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                    </p>
+                {% endif %}
+            </div>
             <div id="header" class="jumbotron">
                 <h1>Bienvenue</h1>
             </div>
