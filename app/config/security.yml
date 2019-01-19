@@ -32,13 +32,13 @@ security:
             anonymous: false
             provider: main
             form_login: 
-                login_path: login
-                check_path: login_check
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
                 csrf_token_generator: security.csrf.token_manager
         
             logout: 
-                path:   /logout
-                target: /
+                path:   fos_user_security_logout
+                target: fos_user_security_login
 
             remember_me:
                 secret: %secret%
