@@ -13,6 +13,9 @@ services:
         tags:
             - { name: twig.extension }
 
+    oc_platform.beta.html_adder:
+        class: OC\PlatformBundle\Beta\BetaHtmlAdder
+
     OC\PlatformBundle\DataFixtures\ORM\LoadCategory:
         tags: [doctrine.fixture.orm]
 
