@@ -4,19 +4,20 @@ namespace OC\PlatformBundle\Beta;
 
 use Symfony\Component\HttpFoundation\Response;
 
+
 class BetaListener{
     protected $betaHtml;
-    protected $enDate;
+    protected $endDate;
 
     public function __construct(BetaHtmlAdder $betaHtml, $endDate)
     {
-        $this->betaHtml = $betaHTML;
+        $this->betaHtml = $betaHtml;
         $this->endDate = new \Datetime($endDate);
     }
 
     public function processBeta()
     {
-        $remainingDays = $this->enDate->diff(new \Datetime())->days;
+        $remainingDays = $this->endDate->diff(new \Datetime())->days;
 
         if ($remainingDays <= 0) {
             return;
