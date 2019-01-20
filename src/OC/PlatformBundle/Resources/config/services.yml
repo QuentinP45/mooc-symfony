@@ -6,6 +6,13 @@ services:
     oc_platform.antispam:
         class: OC\PlatformBundle\Antispam\OCAntispam
 
+    oc_platform.twig.antispam_extension:
+        class: OC\PlatformBundle\Twig\AntispamExtension
+        arguments:
+            - "@oc_platform.antispam"
+        tags:
+            - { name: twig.extension }
+
     OC\PlatformBundle\DataFixtures\ORM\LoadCategory:
         tags: [doctrine.fixture.orm]
 
