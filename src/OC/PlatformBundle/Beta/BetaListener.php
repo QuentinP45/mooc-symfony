@@ -3,7 +3,7 @@
 namespace OC\PlatformBundle\Beta;
 
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 class BetaListener{
     protected $betaHtml;
@@ -15,14 +15,20 @@ class BetaListener{
         $this->endDate = new \Datetime($endDate);
     }
 
-    public function processBeta()
+    public function processBeta(FilterResponseEvent $event)
     {
-        $remainingDays = $this->endDate->diff(new \Datetime())->days;
+        if (!$event->isMasterRequest()) {
+            return;
+        }
+
+        $remainingDays = $this->endDate->diff(new \Datetime('today'))->days;
 
         if ($remainingDays <= 0) {
             return;
         } 
 
-        // method $this->betaHtml->addBeta()
+        $response = $this->betaHtml->addBeta($event->getresponse(), $remainingDays);
+
+        $event->setResponse($response);
     }
 }
