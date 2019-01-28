@@ -15,6 +15,8 @@ use OC\PlatformBundle\Entity\Skill;
 use OC\PlatformBundle\Entity\AdvertSkill;
 use OC\PlatformBundle\Form\AdvertType;
 use OC\PlatformBundle\Form\AdvertEditType;
+use OC\PlatformBundle\Event\PlatformEvents;
+use OC\PlatformBundle\Event\MessagePostEvent;
 
 class AdvertController extends Controller
 {
@@ -94,6 +96,16 @@ class AdvertController extends Controller
             $form->handleRequest($request);
 
             if ($form->isValid()) {
+
+                // create event with 2 arguments
+                $event = new MessagePostEvent($advert->getContent(), $advert->getUser());
+
+                // trigger event
+                $this->get('event_dispatcher')->dispatch(PlatformEvents::POST_MESAGE, $event);
+
+                // got result from listener
+                $advert->setContent($event->getMessage());
+
                 $em = $this->getDoctrine()->getManager();
 
                 $advert->setIp($request->getClientIp());
