@@ -1,6 +1,6 @@
 <?php
 
-namespace OC\Platform\Event;
+namespace OC\PlatformBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\Security\Core\UserInterface;
