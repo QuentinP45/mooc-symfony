@@ -18,6 +18,11 @@ use OC\PlatformBundle\Validator\Antiflood;
 class Advert
 {
     /**
+     * @ORM\ManyToOne(targetEntity="OC\UserBundle\Entity\User")
+     */
+    private $user;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="ip", type="string", length=255)
@@ -452,5 +457,29 @@ class Advert
     public function getIp()
     {
         return $this->ip;
+    }
+
+    /**
+     * Set user.
+     *
+     * @param \OC\UserBundle\Entity\User|null $user
+     *
+     * @return Advert
+     */
+    public function setUser(\OC\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user.
+     *
+     * @return \OC\UserBundle\Entity\User|null
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

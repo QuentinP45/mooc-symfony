@@ -97,11 +97,14 @@ class AdvertController extends Controller
 
             if ($form->isValid()) {
 
+                $user = $this->getUser();
+                $advert->setUser($user);
+
                 // create event with 2 arguments
                 $event = new MessagePostEvent($advert->getContent(), $advert->getUser());
 
                 // trigger event
-                $this->get('event_dispatcher')->dispatch(PlatformEvents::POST_MESAGE, $event);
+                $this->get('event_dispatcher')->dispatch(PlatformEvents::POST_MESSAGE, $event);
 
                 // got result from listener
                 $advert->setContent($event->getMessage());

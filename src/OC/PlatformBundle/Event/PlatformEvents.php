@@ -1,6 +1,6 @@
 <?php
 
-namespace OC\Platform\Event;
+namespace OC\PlatformBundle\Event;
 
 final class PlatformEvents
 {
