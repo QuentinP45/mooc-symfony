@@ -17,7 +17,7 @@ class MessageListener
 
     public function processMessage(MessagePostEvent $event)
     {
-        if (in_array($event->getUser()->getusername(), $this->listUser)) {
+        if (in_array($event->getUser()->getusername(), $this->listUsers)) {
             $this->notificator->notifyByEmail($event->getMessage(), $event->getUser());
         }
     }

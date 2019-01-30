@@ -4,7 +4,7 @@ namespace OC\PlatformBundle\Bigbrother;
 
 use FOS\UserBundle\Model\User as BaseUser;
 
-class MessageNotficator
+class MessageNotificator
 {
     protected $mailer;
 
@@ -15,11 +15,11 @@ class MessageNotficator
 
     public function notifyByEmail($message, BaseUser $user)
     {
-        $message = \Swif_Message::newInstance()
+        $message = \Swift_Message::newInstance()
             ->setSubject("Nouveau message d'un utilisateur surveillé")
             ->setFrom('testsmtp180@gmail.com')
             ->setTo('testsmtp180@gmail.com')
-            ->setBody("L'utilisateur surveillé \"$user->getUsername()\" a posté le message suivant : $message")
+            ->setBody("L'utilisateur surveillé " . $user->getUsername() . " a posté le message suivant : $message")
         ;
 
         $this->mailer->send($message);
