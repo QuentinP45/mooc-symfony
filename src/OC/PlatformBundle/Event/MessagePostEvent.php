@@ -3,14 +3,14 @@
 namespace OC\PlatformBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\Security\Core\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 
 class MessagePostEvent extends Event
 {
     protected $message;
     protected $user;
 
-    public function __construct($message, UserInterface $user)
+    public function __construct($message, BaseUser $user)
     {
         $this->message = $message;
         $this->user = $user;
