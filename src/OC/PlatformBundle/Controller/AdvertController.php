@@ -226,4 +226,11 @@ class AdvertController extends Controller
 
         $em->flush();
     }
+
+    public function translationAction($name)
+    {
+        return $this->render('OCPlatformBundle:Advert:translation.html.twig', [
+            'name' => $name
+        ]);
+    }
 }
